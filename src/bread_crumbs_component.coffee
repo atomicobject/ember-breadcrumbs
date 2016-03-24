@@ -43,10 +43,18 @@ BreadCrumbs.BreadCrumbsComponent = Ember.Component.extend
     breadCrumbs = []
 
     controllers.forEach (controller, index) ->
-      crumbName = controller.get "breadCrumb"
-      if !Ember.isEmpty crumbName
+      crumbs = controller.get('breadCrumbs') || Ember.A([])
+      singleCrumb = controller.get('breadCrumb')
+
+      if (!Ember.isBlank(singleCrumb))
+        crumbs.push
+          name: singleCrumb
+          path: controller.get("breadCrumbPath")
+          model: controller.get("breadCrumbModel")
+
+
+      crumbs.forEach (crumb) ->
         defaultPath = defaultPaths[index]
-        specifiedPath = controller.get "breadCrumbPath"
         breadCrumbs.addObject
           name: crumbName
           path: specifiedPath || defaultPath
@@ -58,4 +66,4 @@ BreadCrumbs.BreadCrumbsComponent = Ember.Component.extend
       deepestCrumb.isCurrent = true
 
     breadCrumbs
-  ).property "controllers.@each.breadCrumb", "controllers.@each.breadCrumbPath", "pathNames.[]"
+  ).property "controllers.@each.breadCrumb", "controllers.@each.breadCrumbs", "controllers.@each.breadCrumbPath", "pathNames.[]"
