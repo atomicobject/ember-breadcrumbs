@@ -59,9 +59,9 @@
           var defaultPath;
           defaultPath = defaultPaths[index];
           return breadCrumbs.addObject({
-            name: crumbName,
-            path: specifiedPath || defaultPath,
-            linkable: specifiedPath !== false,
+            name: crumb.name,
+            path: crumb.path || defaultPath,
+            linkable: crumb.path !== false,
             isCurrent: false
           });
         });

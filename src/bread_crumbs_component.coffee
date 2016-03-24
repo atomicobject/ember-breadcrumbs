@@ -56,9 +56,9 @@ BreadCrumbs.BreadCrumbsComponent = Ember.Component.extend
       crumbs.forEach (crumb) ->
         defaultPath = defaultPaths[index]
         breadCrumbs.addObject
-          name: crumbName
-          path: specifiedPath || defaultPath
-          linkable: (specifiedPath != false)
+          name: crumb.name
+          path: crumb.path || defaultPath
+          linkable: (crumb.path != false)
           isCurrent: false
 
     deepestCrumb = breadCrumbs.get "lastObject"
